@@ -27,11 +27,11 @@ class MainActivity : ComponentActivity() {
                     color = Color(0xFF222222)
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "home"){
-                        composable(route = "home"){HomeScreen(navController)}
-                        composable(route = "linhas"){LinhasScreen(navController)}
-                        composable(route = "paradas"){ParadasScreen(navController)}
-                        composable(route = "mapa"){MapaScreen(navController)}
+                    NavHost(navController = navController, startDestination = "home") {
+                        composable(route = "home") { HomeScreen(navController) }
+                        composable(route = "linhas") { LinhasScreen(navController) }
+                        composable(route = "paradas") { ParadasScreen(navController) }
+                        composable(route = "mapa") { MapaScreen(navController) }
 
                     }
                 }
