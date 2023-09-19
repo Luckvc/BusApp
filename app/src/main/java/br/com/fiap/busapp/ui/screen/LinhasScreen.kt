@@ -15,6 +15,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,10 +24,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Paradas() {
+fun LinhasScreen(navController: NavHostController) {
+
+    var buscaState = remember {
+        mutableStateOf("")
+    }
     Box(Modifier.background(Color(0xff222222))){
         Column {
             Row(
@@ -37,7 +44,7 @@ fun Paradas() {
                     .background(Color(0xFFA5ECD7))
             ) {
                 Text(
-                    text = "Paradas",
+                    text = "Linhas",
                     fontWeight = FontWeight.Bold,
                     fontSize = 28.sp
                 )
@@ -45,8 +52,8 @@ fun Paradas() {
             Column(modifier = Modifier.padding(24.dp)) {
 
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = buscaState.value,
+                    onValueChange = {buscaState.value = it},
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = "Buscar", fontSize = (16.sp))},
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -63,7 +70,7 @@ fun Paradas() {
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                LazyColumn() {
+                LazyColumn {
                     items(50){
                         Text(text = "Parada $it", modifier = Modifier.padding(8.dp), color = Color.White)
 
@@ -78,8 +85,8 @@ fun Paradas() {
 
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ParadasPreview() {
-    Paradas()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun LinhasPreview() {
+//    LinhasScreen(navController)
+//}

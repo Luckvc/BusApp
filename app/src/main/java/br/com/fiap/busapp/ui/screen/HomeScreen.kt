@@ -18,17 +18,27 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
+
+    var origemState = remember {
+        mutableStateOf("")
+    }
+    var destinoState = remember {
+        mutableStateOf("")
+    }
+
     Box(Modifier.background(Color(0xff222222))){
         Column {
             Row(
@@ -40,7 +50,7 @@ fun HomeScreen() {
                     .padding(24.dp)
                     ) {
                 Text(
-                    text = "Olá, Usuário",
+                    text = "Bem-vindo ao BusApp",
                     fontWeight = FontWeight.Bold,
                     fontSize = 28.sp
                 )
@@ -50,8 +60,8 @@ fun HomeScreen() {
                 Spacer(modifier = Modifier.height(64.dp))
 
                 OutlinedTextField(
-                    value = "Usar minha localização atual",
-                    onValueChange = {},
+                    value = origemState.value,
+                    onValueChange = {origemState.value = it},
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = "Origem", fontSize = (16.sp))},
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -67,8 +77,8 @@ fun HomeScreen() {
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = destinoState.value,
+                    onValueChange = { destinoState.value = it},
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = "Destino")},
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -84,7 +94,7 @@ fun HomeScreen() {
 
                 )
                 Spacer(modifier = Modifier.height(24.dp))
-                Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
+                Button(onClick = { navController.navigate("mapa") }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
                     .width(150.dp)
                     .height(50.dp)
                     .align(alignment = Alignment.End)){
@@ -97,19 +107,19 @@ fun HomeScreen() {
                     modifier = Modifier
                         .fillMaxWidth()){
                     Column(modifier = Modifier.padding(24.dp)) {
-                        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
+                        Button(onClick = { navController.navigate("linhas") }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp)){
                             Text(text = "Linhas", fontWeight = FontWeight.Bold, fontSize = (20.sp), color = Color.Black)
                         }
                         Spacer(modifier = Modifier.height(8.dp))
-                        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
+                        Button(onClick = { navController.navigate("paradas") }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp)) {
                             Text(text = "Paradas", fontWeight = FontWeight.Bold, fontSize = (20.sp), color = Color.Black)
                         }
                         Spacer(modifier = Modifier.height(8.dp))
-                        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
+                        Button(onClick = { navController.navigate("mapa") }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFA5ECD7)), modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp)) {
                             Text(text = "Mapa", fontWeight = FontWeight.Bold, fontSize = (20.sp), color = Color.Black)
@@ -126,8 +136,8 @@ fun HomeScreen() {
 
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun HomePreview() {
-    HomeScreen()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun HomePreview() {
+//    HomeScreen(navController)
+//}
